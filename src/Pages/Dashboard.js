@@ -76,12 +76,21 @@ const Dashboard = () => {
       setShow(true);
     }
   };
+
+  const handleClaim = () => {
+      setMessage("Congratulations!!! You have claimed your points");
+      setShow(true);
+      setPoints((points)=>points-1000)
+  }
   return (
     <div className="h-full bg-gradient-to-b from-gray-900 via-gray-500 to-white text-center">
       <Modal show={show} setShow={setShow} message={message} />
       <div className="grid md:grid-cols-3 grid-cols-1">
-        <p className="bg-gray-300 text-black px-12 py-6 m-12 text-4xl rounded">
+        <p className="bg-gray-300 text-black px-12 py-6 m-12 text-4xl rounded flex justify-between">
           Prize Points: {points}
+          {points > 1000 && <button onClick={handleClaim} className="rounded-xl text-sm bg-gray-900 text-white p-2 transition duration-500 transform hover:bg-white hover:text-gray-900">
+            Claim
+          </button>}
         </p>
         <p className="bg-gray-300 text-black px-12 py-6 m-12 text-4xl rounded">
           Attempts: {attempts}
