@@ -77,7 +77,7 @@ const Dashboard = () => {
     }
   };
   return (
-    <div className="h-screen bg-gradient-to-b from-gray-900 via-gray-500 to-gray-300 text-center">
+    <div className="h-full bg-gradient-to-b from-gray-900 via-gray-500 to-white text-center">
       <Modal show={show} setShow={setShow} message={message} />
       <div className="grid md:grid-cols-3 grid-cols-1">
         <p className="bg-gray-300 text-black px-12 py-6 m-12 text-4xl rounded">
@@ -94,10 +94,10 @@ const Dashboard = () => {
         </button>
       </div>
       <div>
-        <p className="md:mx-96 rounded-2xl py-12 bg-gray-900 bg-opacity-60 text-6xl text-white text-center font-extrabold">
+        <p className="mx-4 md:mx-96 rounded-2xl py-12 bg-gray-900 bg-opacity-60 text-6xl text-white text-center font-extrabold">
           Welcome to the Slot Game Site.
         </p>
-        <div className="flex justify-evenly">
+        <div className="grid md:grid-cols-3 grid-cols-1 mx-auto">
           <div className="bg-gray-300 text-black px-12 py-6 m-12 text-4xl rounded">
             <p className={start ? "animate-ping" : ""}>{slots.slot1}</p>
           </div>
