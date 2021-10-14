@@ -1,10 +1,25 @@
-# Getting Started with Create React App
+# Getting Started with Slots App Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+``` git clone https://github.com/reactexcel/Slots.git ```
+``` cd slots ```
+``` yarn ```
+``` yarn start ```
+
+## Getting Started with Slots App Backend
+Not mandatory
+``` cd Slots/TestNode ```
+``` npm i ```
+``` npm start ```
+Then change the uri in Slots/src/index.js else it will run using the deployed url.
+
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `yarn`
+
+Installs the requires node modules
 
 ### `yarn start`
 
