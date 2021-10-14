@@ -7,7 +7,7 @@
 
 ## Deployed URL
 
-[a link](http://slots.surge.sh/)
+[Slots App](http://slots.surge.sh/)
 
 ## Getting Started with Slots App Backend
 Not mandatory
