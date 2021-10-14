@@ -1,14 +1,38 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import {
+  ApolloClient,
+  InMemoryCache,
+  gql,
+  useMutation,
+} from "@apollo/client";
+
+const uri = `http://localhost:4000/graphql`;
+
+const query = gql`
+  mutation AddPlayerMutation(
+    $email: String!
+    $password: String!
+    $dateOfBirth: String!
+  ) {
+    addPlayer(email: $email, password: $password, dateOfBirth: $dateOfBirth)
+  }
+`;
+
+const client = new ApolloClient({
+  uri: `${uri}`,
+  cache: new InMemoryCache(),
+});
 
 const SignUp = () => {
+  const [AddPlayerMutation, { loading, error, data }] = useMutation(query);
   const history = useHistory();
   const [formValues, setFormValues] = useState({
     email: "",
     date: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const handleFormValues = (key, value) => {
     setFormValues({ ...formValues, [key]: value });
   };
@@ -37,14 +61,26 @@ const SignUp = () => {
     let age = getAge();
     if (age < 18) {
       authentication = false;
-      setError("date");
+      setErrorMessage("date");
     }
     if (!checkPassword()) {
       authentication = false;
-      setError("password");
+      setErrorMessage("password");
     }
     if (authentication) {
-      history.push("/login");
+      setErrorMessage(false);
+      AddPlayerMutation({
+        variables: {
+          email: formValues.email,
+          password: formValues.password,
+          dateOfBirth: formValues.date,
+        },
+      }).then(response=>{
+        history.push("/login");
+        console.log(response,'register_response')
+      }).catch(error=>{
+        console.log(error,'register_response')
+      })
     }
   };
 
@@ -88,7 +124,7 @@ const SignUp = () => {
                   required
                 />
               </div>
-              {error === "password" ? (
+              {errorMessage === "password" ? (
                 <div className="grid grid-cols-2 my-4 border-none">
                   <p></p>
                   <p className="text-xs text-red-600">
@@ -97,7 +133,7 @@ const SignUp = () => {
                   </p>
                 </div>
               ) : (
-                error === "date" && (
+                errorMessage === "date" && (
                   <div className="grid grid-cols-2 my-4 border-none">
                     <p></p>
                     <p className="text-xs text-red-600">

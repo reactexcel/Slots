@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import { ApolloClient, InMemoryCache, gql, useMutation } from "@apollo/client";
+
+const uri = `http://localhost:4000/graphql`;
+
+const query = gql`
+  mutation GetPlayerMutation($email: String!, $password: String!) {
+    getPlayer(email: $email, password: $password)
+  }
+`;
 
 const Login = () => {
+  const [getPlayer, { loading, error, data }] = useMutation(query);
   const history = useHistory();
   const [formValues, setFormValues] = useState({});
   const handleFormValues = (key, value) => {
@@ -10,7 +20,21 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    history.push("/dashboard");
+    getPlayer({
+      variables: {
+        email: formValues.email,
+        password: formValues.password,
+      },
+    })
+      .then((response) => {
+        console.log(response?.data?.getPlayer, "register_response");
+        localStorage.setItem("id",response?.data?.getPlayer)
+        history.push("/dashboard");
+      })
+      .catch((error) => {
+        console.log(error, "register_response");
+      });
+    // history.push("/dashboard");
   };
 
   return (
@@ -45,8 +69,9 @@ const Login = () => {
               <button
                 type="submit"
                 className="bg-gray-900 text-white m-6 py-2 px-4 rounded transition duration-500 transform hover:bg-gray-300 hover:text-black"
+                disabled={loading}
               >
-                Login
+                {loading ? "Please Wait" :"Login"}
               </button>
             </form>
             <div>
