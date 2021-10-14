@@ -5,6 +5,10 @@
 ``` yarn ```
 ``` yarn start ```
 
+## Deployed URL
+
+[a link](http://slots.surge.sh/)
+
 ## Getting Started with Slots App Backend
 Not mandatory
 ``` cd Slots/TestNode ```
