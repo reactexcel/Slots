@@ -1,18 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 const client = new ApolloClient({
-  uri: `https://ancient-peak-25965.herokuapp.com/`,
+  uri: `https://ancient-peak-25965.herokuapp.com/graphql`,
   cache: new InMemoryCache(),
 });
 

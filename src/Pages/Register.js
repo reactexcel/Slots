@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import {
-  ApolloClient,
-  InMemoryCache,
   gql,
   useMutation,
 } from "@apollo/client";
-
-const uri = `http://localhost:4000/graphql`;
 
 const query = gql`
   mutation AddPlayerMutation(
@@ -19,13 +15,8 @@ const query = gql`
   }
 `;
 
-const client = new ApolloClient({
-  uri: `${uri}`,
-  cache: new InMemoryCache(),
-});
-
 const SignUp = () => {
-  const [AddPlayerMutation, { loading, error, data }] = useMutation(query);
+  const [AddPlayerMutation] = useMutation(query);
   const history = useHistory();
   const [formValues, setFormValues] = useState({
     email: "",

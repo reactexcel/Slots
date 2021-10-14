@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
-import { ApolloClient, InMemoryCache, gql, useMutation } from "@apollo/client";
-
-const uri = `http://localhost:4000/graphql`;
+import { gql, useMutation } from "@apollo/client";
 
 const query = gql`
   mutation GetPlayerMutation($email: String!, $password: String!) {
@@ -11,7 +9,7 @@ const query = gql`
 `;
 
 const Login = () => {
-  const [getPlayer, { loading, error, data }] = useMutation(query);
+  const [getPlayer, { loading }] = useMutation(query);
   const history = useHistory();
   const [formValues, setFormValues] = useState({});
   const handleFormValues = (key, value) => {
@@ -28,7 +26,7 @@ const Login = () => {
     })
       .then((response) => {
         console.log(response?.data?.getPlayer, "register_response");
-        localStorage.setItem("id",response?.data?.getPlayer)
+        localStorage.setItem("id", response?.data?.getPlayer);
         history.push("/dashboard");
       })
       .catch((error) => {
@@ -71,7 +69,7 @@ const Login = () => {
                 className="bg-gray-900 text-white m-6 py-2 px-4 rounded transition duration-500 transform hover:bg-gray-300 hover:text-black"
                 disabled={loading}
               >
-                {loading ? "Please Wait" :"Login"}
+                {loading ? "Please Wait" : "Login"}
               </button>
             </form>
             <div>

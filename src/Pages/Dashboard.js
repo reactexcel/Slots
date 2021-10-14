@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import Modal from "../Components/Modal";
-import {
-  ApolloClient,
-  InMemoryCache,
-  gql,
-  useQuery,
-  useMutation,
-} from "@apollo/client";
-
-const uri = `http://localhost:4000/graphql`;
+import { gql, useQuery, useMutation } from "@apollo/client";
 
 const query = gql`
   query Query($getPointsId: ID!) {
@@ -33,13 +25,8 @@ const AlterPointsMutation = gql`
   }
 `;
 
-const client = new ApolloClient({
-  uri: `${uri}`,
-  cache: new InMemoryCache(),
-});
-
 const Dashboard = () => {
-  const { loading, error, data } = useQuery(query, {
+  const { loading, data } = useQuery(query, {
     variables: { getPointsId: localStorage.getItem("id") },
   });
   const [alterPoints] = useMutation(AlterPointsMutation);
@@ -75,8 +62,6 @@ const Dashboard = () => {
   };
 
   const handleAlterPoints = (points, attempts) => {
-    console.log(data?.getPoints, "____________");
-    console.log(points, attempts, "____________");
     alterPoints({
       variables: {
         point: points,
